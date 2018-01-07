@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class BusinessHourCalcuratorTest {
 
     @Test
-    public void invaldCase(){
+    public void invalidCase(){
         LocalDateTime begin = LocalDateTime.of(2018, 1, 14, 9, 10, 45);
         LocalDateTime end = LocalDateTime.of(2018, 1, 10, 9, 10, 50);
         assertEquals(0, BusinessHourCalcurator.getSeconds(begin, end));
