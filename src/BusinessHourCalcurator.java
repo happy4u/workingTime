@@ -17,25 +17,25 @@ public class BusinessHourCalcurator {
 
 
         if (diffDays == 0) {
-            seconds = BusinessHour.getMinsByDateTime(begin, end);
+            seconds = BusinessHour.calSecondsByDateTime(begin, end);
         } else if (diffDays == 1) {
             seconds = 0;
 
-            seconds += BusinessHour.getMinsByDateTime(begin, null);
-            seconds += BusinessHour.getMinsByDateTime(null, end);
+            seconds += BusinessHour.calSecondsByDateTime(begin, null);
+            seconds += BusinessHour.calSecondsByDateTime(null, end);
 
         } else {
-            seconds += BusinessHour.getMinsByDateTime(begin, null);
+            seconds += BusinessHour.calSecondsByDateTime(begin, null);
 
             LocalDate startDay = LocalDate.from(begin).plusDays(1);
             LocalDate finishDay = LocalDate.from(end);
 
             do {
-                seconds += BusinessHour.getMinsByDate(startDay);
+                seconds += BusinessHour.calSecondsByDate(startDay);
                 startDay = startDay.plusDays(1);
             } while(startDay.isBefore(finishDay));
 
-            seconds += BusinessHour.getMinsByDateTime(null, end);
+            seconds += BusinessHour.calSecondsByDateTime(null, end);
         }
 
         return seconds;

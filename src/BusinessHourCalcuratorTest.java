@@ -1,10 +1,8 @@
-
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by goodfeel on 2018. 1. 7..
@@ -43,6 +41,7 @@ public class BusinessHourCalcuratorTest {
     @Test
     public void testMoreThanTwoDay(){
 
+        // expected 값을 근무시간을 통해 계산하도록 해놔야 나중에 근무시간 변경해도 테스트가 안깨질텐데. 나중에..
         LocalDateTime begin = LocalDateTime.of(2018, 1, 10, 18, 50, 0);
         LocalDateTime end = LocalDateTime.of(2018, 1, 12, 9, 10, 0);
         assertEquals((20 * 60) + BusinessHourTest.SECONDS_OF_ONE_WORKING_DAY, BusinessHourCalcurator.getSeconds(begin, end));
