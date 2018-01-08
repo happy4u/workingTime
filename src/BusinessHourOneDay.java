@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * 하루에 대한 근무 시간만을 계산하는 클래스
  */
-public class BusinessHour {
+public class BusinessHourOneDay {
 
     // 평일 근무시간 지정
     public static final int BEGIN_WORK_HOUR = 9;
@@ -35,7 +35,12 @@ public class BusinessHour {
         }
     }
 
-
+    /**
+     * 하루 단위의 업무 시간을 계산
+     * @param 업무 시작시간 (시작이 당일이 아닌 경우 null)
+     * @param 업무 종료시간 (종료가 당일이 아닌 경우 null)
+     * @return
+     */
     public static long calSecondsByDateTime(LocalDateTime begin, LocalDateTime end) {
 
         LocalDateTime calBegin, calEnd;
@@ -44,6 +49,17 @@ public class BusinessHour {
             return 0;
         }
 
+
+        if (begin !=null){
+            if(NON_WORKING_DAY_OF_WEEK.contains(begin.getDayOfWeek())){
+                return 0;
+            }
+        }
+        else {
+            if(NON_WORKING_DAY_OF_WEEK.contains(end.getDayOfWeek())){
+                return 0;
+            }
+        }
 
         if (begin != null) {
             calBegin = makeLocalDateTime(BEGIN_WORK_HOUR, begin);

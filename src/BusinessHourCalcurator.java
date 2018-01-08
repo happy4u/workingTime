@@ -17,25 +17,29 @@ public class BusinessHourCalcurator {
 
 
         if (diffDays == 0) {
-            seconds = BusinessHour.calSecondsByDateTime(begin, end);
+            // 하루만에 처리가 끝난 경우
+            seconds = BusinessHourOneDay.calSecondsByDateTime(begin, end);
+
         } else if (diffDays == 1) {
+            // 이틀만에 처리가 끝난경우
             seconds = 0;
 
-            seconds += BusinessHour.calSecondsByDateTime(begin, null);
-            seconds += BusinessHour.calSecondsByDateTime(null, end);
+            seconds += BusinessHourOneDay.calSecondsByDateTime(begin, null);
+            seconds += BusinessHourOneDay.calSecondsByDateTime(null, end);
 
         } else {
-            seconds += BusinessHour.calSecondsByDateTime(begin, null);
+            // 처리가 이틀 초과인 경우
+            seconds += BusinessHourOneDay.calSecondsByDateTime(begin, null);
 
             LocalDate startDay = LocalDate.from(begin).plusDays(1);
             LocalDate finishDay = LocalDate.from(end);
 
             do {
-                seconds += BusinessHour.calSecondsByDate(startDay);
+                seconds += BusinessHourOneDay.calSecondsByDate(startDay);
                 startDay = startDay.plusDays(1);
             } while(startDay.isBefore(finishDay));
 
-            seconds += BusinessHour.calSecondsByDateTime(null, end);
+            seconds += BusinessHourOneDay.calSecondsByDateTime(null, end);
         }
 
         return seconds;
